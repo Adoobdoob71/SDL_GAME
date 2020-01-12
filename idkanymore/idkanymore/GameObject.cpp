@@ -1,32 +1,47 @@
 #include "pch.h"
 #include "GameObject.h"
 #include "TManager.h"
+#include "Game.h"
 
-GameObject::GameObject(const char* texture, SDL_Renderer* ren) {
-
-	renderer = ren;
-	objtexture = TManager::LoadTexture(texture, renderer);
-	
+GameObject::GameObject(const char* texture) {
+	objtexture = TManager::LoadTexture(texture);
 }
 
 void GameObject::Update() {
 
-	xpos = 0;
-	ypos = 0;
-	srcR.h = 600;
-	srcR.w = 800;
-	srcR.x = 0;
-	srcR.y = 0;
+	
 	destR.x = xpos;
 	destR.y = ypos;
-	destR.w = 800;
-	destR.h = 600;
+	destR.w = 128;
+	destR.h = 72;
+	
+}
 
+void GameObject::Movement() {
+
+	SDL_Event ev;
+	SDL_PollEvent(&ev);
+	switch (ev.key.keysym.sym)
+	{
+	case SDLK_w:
+		ypos -= 5;
+		printf("HELLO");
+		break;
+	case SDLK_s:
+		ypos += 5;
+		break;
+	case SDLK_d:
+		xpos += 5;
+		break;
+	case SDLK_a:
+		xpos -= 5;
+		break;
+	default:
+		break;
+	}
 }
 
 void GameObject::Render() {
-
-	SDL_RenderCopy(renderer, objtexture, &srcR, &destR);
-
-
+	SDL_RenderCopy(Game::renderer, objtexture, NULL, &destR);
 }
+

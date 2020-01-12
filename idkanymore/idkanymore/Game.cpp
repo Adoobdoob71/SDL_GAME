@@ -6,6 +6,7 @@
 
 GameObject* player;
 
+SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game() {
 						
@@ -32,14 +33,14 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 		if (window)
 			printf("Window Created!");
-		r = SDL_CreateRenderer(window, -1, 0);
-		if (r) {
-			SDL_SetRenderDrawColor(r, 255, 255, 255, 255);
+		renderer = SDL_CreateRenderer(window, -1, 0);
+		if (renderer) {
+			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		}
 		isRunning = true;
 	}
 	
-	player = new GameObject("C:/heftyskipper.jpg", r);
+	player = new GameObject("C:/heftyskipper.jpg");
 
 	
 }
@@ -55,30 +56,44 @@ void Game::handleEvents() {
 		break;
 	default:
 		break;
-
 	}
-
-
+	switch (ev.key.keysym.sym)
+	{
+	case SDLK_w:
+		player->ypos -= 5;
+		printf("HELLO");
+		break;
+	case SDLK_s:
+		player->ypos += 5;
+		break;
+	case SDLK_d:
+		player->xpos += 5;
+		break;
+	case SDLK_a:
+		player->xpos -= 5;
+		break;
+	default:
+		break;
+	}
 }
 
 void Game::update() {
 
 	player->Update();
-
 }
 
 void Game::render() {
 
-	SDL_RenderClear(r);
+	SDL_RenderClear(renderer);
 	player->Render();
-	SDL_RenderPresent(r);
+	SDL_RenderPresent(renderer);
 
 }
 
 void Game::clean() {
 
 	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(r);
+	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
 	printf("Game cleaned");
 
