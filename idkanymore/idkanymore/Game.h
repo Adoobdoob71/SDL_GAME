@@ -1,8 +1,8 @@
 #pragma once
 #include "SDL.h"
 #include "SDL_image.h"
+#include "ObjectVector.h"
 #include <cstdio>
-#include <vector>
 
 class Game {
 
@@ -19,7 +19,6 @@ public:
 	void clean();
 	bool running() { return isRunning; };
 	static SDL_Renderer *renderer;
-	
 private:
 
 	bool isRunning;

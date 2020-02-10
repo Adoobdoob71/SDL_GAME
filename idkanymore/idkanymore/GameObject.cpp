@@ -7,6 +7,14 @@ GameObject::GameObject(const char* texture) {
 	objtexture = TManager::LoadTexture(texture);
 }
 
+GameObject::~GameObject() {
+	delete objtexture;
+	delete &srcR;
+	delete &destR;
+	delete &xpos;
+	delete &ypos;
+}
+
 void GameObject::Update() {
 
 	
@@ -44,4 +52,6 @@ void GameObject::Movement() {
 void GameObject::Render() {
 	SDL_RenderCopy(Game::renderer, objtexture, NULL, &destR);
 }
+
+
 

@@ -3,9 +3,7 @@
 #include "TManager.h"
 #include "GameObject.h"
 
-
-GameObject* player;
-
+ObjectVector *ov = new ObjectVector();
 SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game() {
@@ -25,7 +23,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		width = DM.w;
 		height = DM.h;
 		flags = SDL_WINDOW_FULLSCREEN;
-
 	}
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
 
@@ -39,10 +36,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		}
 		isRunning = true;
 	}
-	
-	player = new GameObject("C:/heftyskipper.jpg");
+	GameObject *player = new GameObject("C:/heftyskipper.jpg");
+	ov->_objectV.push_back(player);
 
-	
 }
 
 void Game::handleEvents() {
@@ -57,41 +53,43 @@ void Game::handleEvents() {
 	default:
 		break;
 	}
-	switch (ev.key.keysym.sym)
-	{
-	case SDLK_w:
-		player->ypos -= 5;
-		printf("HELLO");
-		break;
-	case SDLK_s:
-		player->ypos += 5;
-		break;
-	case SDLK_d:
-		player->xpos += 5;
-		break;
-	case SDLK_a:
-		player->xpos -= 5;
-		break;
-	default:
-		break;
+	for (GameObject *player : ov->_objectV) {
+
+		switch (ev.key.keysym.sym)
+		{
+		case SDLK_w:
+			player->ypos -= 5;
+			printf("HELLO");
+			break;
+		case SDLK_s:
+			player->ypos += 5;
+			break;
+		case SDLK_d:
+			player->xpos += 5;
+			break;
+		case SDLK_a:
+			player->xpos -= 5;
+			break;
+		default:
+			break;
+		}
 	}
 }
 
 void Game::update() {
-
-	player->Update();
+	ov->update();
 }
 
 void Game::render() {
 
 	SDL_RenderClear(renderer);
-	player->Render();
+	ov->render();
 	SDL_RenderPresent(renderer);
 
 }
 
 void Game::clean() {
-
+	ov->clean();
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
