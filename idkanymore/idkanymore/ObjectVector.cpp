@@ -2,7 +2,6 @@
 #include "ObjectVector.h"
 #include "SDL.h"
 
-
 ObjectVector::ObjectVector() {
 
 }

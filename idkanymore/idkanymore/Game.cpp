@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "TManager.h"
 #include "GameObject.h"
+#include "ObjectVector.h"
 
 ObjectVector *ov = new ObjectVector();
 SDL_Renderer* Game::renderer = nullptr;
@@ -36,9 +37,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		}
 		isRunning = true;
 	}
-	GameObject *player = new GameObject("C:/heftyskipper.jpg");
+	GameObject* player = new GameObject("C:/heftyskipper.jpg", GameObject::ID::Player);
+	GameObject* enemy = new GameObject("C:/helloth.png", GameObject::ID::Enemy);
 	ov->_objectV.push_back(player);
-
+	ov->_objectV.push_back(enemy);
 }
 
 void Game::handleEvents() {
@@ -53,29 +55,10 @@ void Game::handleEvents() {
 	default:
 		break;
 	}
-	for (GameObject *player : ov->_objectV) {
 
-		switch (ev.key.keysym.sym)
-		{
-		case SDLK_w:
-			player->ypos -= 5;
-			printf("HELLO");
-			break;
-		case SDLK_s:
-			player->ypos += 5;
-			break;
-		case SDLK_d:
-			player->xpos += 5;
-			break;
-		case SDLK_a:
-			player->xpos -= 5;
-			break;
-		default:
-			break;
-		}
-	}
+	for (GameObject *player : ov->_objectV)
+		player->Movement();
 }
-
 void Game::update() {
 	ov->update();
 }

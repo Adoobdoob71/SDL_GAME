@@ -1,7 +1,6 @@
 #pragma once
 #include "SDL.h"
 #include "SDL_image.h"
-#include "ObjectVector.h"
 #include <cstdio>
 
 class Game {

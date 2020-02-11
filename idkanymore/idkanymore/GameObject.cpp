@@ -3,7 +3,7 @@
 #include "TManager.h"
 #include "Game.h"
 
-GameObject::GameObject(const char* texture) {
+GameObject::GameObject(const char* texture, enum GameObject::ID Id) {
 	objtexture = TManager::LoadTexture(texture);
 }
 
@@ -26,26 +26,27 @@ void GameObject::Update() {
 }
 
 void GameObject::Movement() {
-
-	SDL_Event ev;
-	SDL_PollEvent(&ev);
-	switch (ev.key.keysym.sym)
-	{
-	case SDLK_w:
-		ypos -= 5;
-		printf("HELLO");
-		break;
-	case SDLK_s:
-		ypos += 5;
-		break;
-	case SDLK_d:
-		xpos += 5;
-		break;
-	case SDLK_a:
-		xpos -= 5;
-		break;
-	default:
-		break;
+	if (ID == ID::Player) {
+		SDL_Event ev;
+		SDL_PollEvent(&ev);
+		switch (ev.key.keysym.sym)
+		{
+		case SDLK_w:
+			ypos -= 5;
+			printf("HELLO");
+			break;
+		case SDLK_s:
+			ypos += 5;
+			break;
+		case SDLK_d:
+			xpos += 5;
+			break;
+		case SDLK_a:
+			xpos -= 5;
+			break;
+		default:
+			break;
+		}
 	}
 }
 

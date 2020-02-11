@@ -3,14 +3,20 @@
 
 class GameObject {
 
+
 public:
-	GameObject(const char* texture);
+	enum ID {
+		Player,
+		Enemy
+	};
+	GameObject(const char* texture, ID);
 	~GameObject();
 	void Update();
 	void Render();
 	void Movement();
 	int xpos;
 	int ypos;
+	ID ID;
 
 private:
 
