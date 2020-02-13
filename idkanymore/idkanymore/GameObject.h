@@ -9,18 +9,15 @@ public:
 		Player,
 		Enemy
 	};
-	GameObject(const char* texture, ID);
+	GameObject(const char* texture, ID ID);
 	~GameObject();
 	void Update();
 	void Render();
-	void Movement();
+	void Movement(SDL_Event ev, int width, int height);
 	int xpos;
 	int ypos;
 	ID ID;
-
-private:
-
-	SDL_Rect srcR, destR;
 	SDL_Texture* objtexture;
-	
+	SDL_Rect srcR, destR;
+
 };

@@ -6,22 +6,16 @@ ObjectVector::ObjectVector() {
 
 }
 ObjectVector::~ObjectVector() {
-
+	for (GameObject *a : _objectV)
+		delete a;
 }
 
 void ObjectVector::update() {
-	for (GameObject *a : _objectV) {
-		a->Update();
-		a->Movement();
-	}
+	for (GameObject *a : _objectV) 
+		a->Update();	
 }
 
 void ObjectVector::render() {
 	for (GameObject *a : _objectV)
 		a->Render();
-}
-
-void ObjectVector::clean() {
-	for (GameObject *a : _objectV)
-		delete a;
 }
