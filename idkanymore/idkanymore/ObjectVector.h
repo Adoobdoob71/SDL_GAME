@@ -9,7 +9,6 @@ public:
 	ObjectVector();
 	~ObjectVector();
 	std::vector<GameObject*> _objectV;
-	void clean();
 	void render();
 	void update();
 	

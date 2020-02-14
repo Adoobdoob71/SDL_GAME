@@ -3,10 +3,12 @@
 #include "TManager.h"
 #include "GameObject.h"
 #include "ObjectVector.h"
+#include "Ball.h"
 
 ObjectVector *ov = new ObjectVector();
 SDL_Renderer *Game::renderer = nullptr;
 int WIDTH = 0, HEIGHT = 0;
+Ball *ball = nullptr;
 
 Game::Game() {
 						
@@ -41,10 +43,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = true;
 	}
 	GameObject *player = new GameObject("C:/heftyskipper.jpg", GameObject::ID::Player);
-	GameObject *enemy = new GameObject("C:/helloth.png", GameObject::ID::Enemy);
+	player->xpos = 420;
+	player->ypos = 500;
 	ov->_objectV.push_back(player);
-	ov->_objectV.push_back(enemy);
-
+	ball = new Ball("C:/heftyskipper.jpg", ov);
 }
 
 void Game::handleEvents() {
@@ -66,16 +68,19 @@ void Game::handleEvents() {
 }
 void Game::update() {
 	ov->update();
+	ball->Update(WIDTH, HEIGHT);
 }
 
 void Game::render() {
 	SDL_RenderClear(renderer);
 	ov->render();
+	ball->Render();
 	SDL_RenderPresent(renderer);
 }
 
 void Game::clean() {
 	delete ov;
+	delete ball;
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();

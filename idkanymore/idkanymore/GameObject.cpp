@@ -6,7 +6,6 @@
 GameObject::GameObject(const char* texture, enum GameObject::ID ID) {
 	objtexture = TManager::LoadTexture(texture);
 	this->ID = ID;
-	xpos = 20;
 }
 
 GameObject::~GameObject() {
@@ -17,36 +16,40 @@ GameObject::~GameObject() {
 void GameObject::Update() {
 	destR.x = xpos;
 	destR.y = ypos;
-	destR.w = 30;
-	destR.h = 75;
-	srcR.h = 75;
+	destR.w = 110;
+	destR.h = 30;
+	srcR.h = 110;
 	srcR.w = 30;
-	srcR.x = xpos;
-	srcR.y = ypos;
 }
 
 void GameObject::Movement(SDL_Event ev, int WIDTH, int HEIGHT) {
 
 	switch (ev.key.keysym.sym)
 	{
-	case SDLK_w:
-		ypos -= 5;
+	case SDLK_a:
+		xpos -= velocity;
+		break;
+	case SDLK_d:
+		xpos += velocity;
 		break;
 	case SDLK_s:
-		ypos += 5;
+		ypos += velocity;
+		break;
+	case SDLK_w:
+		ypos -= velocity;
 		break;
 	default:
 		break;
 	}
 
-	if (ypos == 0)
-		ypos += 5;
-	if (ypos == HEIGHT - 75)
-		ypos -= 5;
+	if (xpos == 0)
+		xpos += velocity;
+	if (xpos == WIDTH - destR.w)
+		xpos -= velocity;
 }
 
 void GameObject::Render() {
-	SDL_RenderCopy(Game::renderer, objtexture, &srcR, &destR);
+	SDL_RenderCopy(Game::renderer, objtexture, NULL, &destR);
 }
 
 
