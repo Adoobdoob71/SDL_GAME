@@ -4,7 +4,10 @@
 #include "GameObject.h"
 #include "ObjectVector.h"
 #include "Ball.h"
+#include "BlobSpawner.h"
+#include "Blob.h"
 
+BlobSpawner *bs = new BlobSpawner();
 ObjectVector *ov = new ObjectVector();
 SDL_Renderer *Game::renderer = nullptr;
 int WIDTH = 0, HEIGHT = 0;
@@ -21,18 +24,10 @@ Game::~Game() {
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
 
 	int flags = 0;
-	if (fullscreen) {
-		SDL_DisplayMode DM;
-		SDL_GetCurrentDisplayMode(0, &DM);
-		width = DM.w;
-		height = DM.h;
-		flags = SDL_WINDOW_FULLSCREEN;
-	}
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-
-		printf("System Initialized!");
 		WIDTH = width;
 		HEIGHT = height;
+		printf("System Initialized!");
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 		if (window)
 			printf("Window Created!");
@@ -43,10 +38,21 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = true;
 	}
 	GameObject *player = new GameObject("C:/heftyskipper.jpg", GameObject::ID::Player);
-	player->xpos = 420;
-	player->ypos = 500;
+	player->xpos = 300;
+	player->ypos = 450;
+	player->destR.h = 30;
+	player->destR.w = 150;
 	ov->_objectV.push_back(player);
+	int bx = 1;
+	for (int i = 0; i < 5; i++) {
+		Blob* a = new Blob("C:/EM.png");
+		a->xpos = bx * 80;
+		a->ypos = 100;
+		bx++;
+		bs->blob_vector.push_back(a);
+	}
 	ball = new Ball("C:/heftyskipper.jpg", ov);
+
 }
 
 void Game::handleEvents() {
@@ -62,25 +68,27 @@ void Game::handleEvents() {
 		break;
 	}
 	for (GameObject *player : ov->_objectV)
-		if (player->ID == GameObject::ID::Player)
 			player->Movement(ev, WIDTH, HEIGHT);
 	
 }
 void Game::update() {
 	ov->update();
 	ball->Update(WIDTH, HEIGHT);
+	bs->update();
 }
 
 void Game::render() {
 	SDL_RenderClear(renderer);
 	ov->render();
 	ball->Render();
+	bs->render();
 	SDL_RenderPresent(renderer);
 }
 
 void Game::clean() {
 	delete ov;
 	delete ball;
+	delete bs;
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();

@@ -16,7 +16,7 @@ public:
 	void Movement(SDL_Event ev, int width, int height);
 	int xpos;
 	int ypos;
-	int velocity = 20;
+	int velocity = 10;
 	ID ID;
 	SDL_Texture* objtexture;
 	SDL_Rect srcR, destR;

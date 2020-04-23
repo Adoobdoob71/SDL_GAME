@@ -31,13 +31,10 @@ void Ball::Lock(int WIDTH, int HEIGHT) {
 		Yvelocity *= -1;
 
 	for (GameObject *player : ov->_objectV) {
-		if (ypos >= player->ypos - 50 && ypos <= player->ypos + player->destR.h && (xpos + 50 == player->xpos || xpos == player->xpos + player->destR.w)) {
-			Xvelocity *= -1;
-			continue;
-		}
-		if (xpos >= player->xpos - 50 && xpos <= player->xpos + player->destR.w && (ypos + 50 == player->ypos || ypos == player->ypos + player->destR.h))		
+		if (xpos >= player->xpos - 50 && xpos <= player->xpos + player->destR.w && (ypos + 50 == player->ypos || ypos == player->ypos + player->destR.h))
 			Yvelocity *= -1;
-	
+		if (ypos >= player->ypos - 50 && ypos <= player->ypos + player->destR.h && (xpos + 50 == player->xpos || xpos == player->xpos + player->destR.w))
+			Xvelocity *= -1;
 	}
 }
 

@@ -1,13 +1,14 @@
 #include "pch.h"
 #include "Game.h"
 #include "SDL.h"
+#include <iostream>
 #undef main
 
 Game *game = nullptr;
 
 int main(int argc, const char * argv[]) {
 
-	const int  FPS = 60;
+	const int  FPS = 250;
 	const int FrameDelay = 1000 / FPS;
 
 	Uint32 frameStart;
@@ -22,8 +23,9 @@ int main(int argc, const char * argv[]) {
 		game->update();
 		game->render();
 		frameTime = SDL_GetTicks() - frameStart;
-		if (FrameDelay > frameTime) 
+		if (FrameDelay > frameTime) {
 			SDL_Delay(FrameDelay - frameTime);
+		}
 	}
 
 	game->clean();
