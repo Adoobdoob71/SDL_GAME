@@ -14,7 +14,10 @@ Blob::~Blob() {
 }
 
 void Blob::Move() {
-	ypos += 50;
+	ypos += 80;
+}
+
+void Blob::Update() {
 	destR.h = 50;
 	destR.w = 50;
 	destR.x = xpos;

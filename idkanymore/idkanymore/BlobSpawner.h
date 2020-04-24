@@ -10,5 +10,5 @@ public:
 	void render();
 	void update();
 	Uint32 start = 0;
-
+	Uint32 SpawnTimer = 0;
 };

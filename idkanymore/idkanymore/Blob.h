@@ -8,10 +8,11 @@ public:
 	~Blob();
 	void Move();
 	void Render();
+	void Update();
 	SDL_Texture* texture;
 	SDL_Rect srcR, destR;
 	const int HEIGHT = 50, WIDTH = 50;
 	int xpos = 50;
 	int ypos = 100;
-	
+
 };

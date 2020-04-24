@@ -3,10 +3,13 @@
 #include "TManager.h"
 #include "Game.h"
 #include "ObjectVector.h"
+#include "BlobSpawner.h"
+#include <iostream>
 
-Ball::Ball(const char* texture, ObjectVector *ov) {
+Ball::Ball(const char* texture, ObjectVector *ov, BlobSpawner *bs) {
 	this->texture = TManager::LoadTexture(texture);
 	this->ov = ov;
+	this->bs = bs;
 }
 
 Ball::~Ball() {
@@ -35,7 +38,36 @@ void Ball::Lock(int WIDTH, int HEIGHT) {
 			Yvelocity *= -1;
 		if (ypos >= player->ypos - 50 && ypos <= player->ypos + player->destR.h && (xpos + 50 == player->xpos || xpos == player->xpos + player->destR.w))
 			Xvelocity *= -1;
+	}	
+	int count = 0;
+	for (Blob* a : bs->blob_vector) {
+		if (xpos >= a->xpos - 50 && xpos <= a->xpos + a->destR.w && (ypos + 50 == a->ypos || ypos == a->ypos + a->destR.h)) {
+			Yvelocity *= -1;
+			try {
+				bs->blob_vector.erase(bs->blob_vector.begin() + count);
+				score += 10;
+				std::cout << "Score: " << score << "\n";
+			}
+			catch (int e) {
+				std::cout << "Error at blob number: " << count << "\n";
+				std::cout << "Error: " << e << "\n";
+			}
+		}
+		if (ypos >= a->ypos - 50 && ypos <= a->ypos + a->destR.h && (xpos + 50 == a->xpos || xpos == a->xpos + a->destR.w)) {
+			Xvelocity *= -1;
+			try {
+				bs->blob_vector.erase(bs->blob_vector.begin() + count);
+				score += 10;
+				std::cout << "Score: " << score << "\n";
+			}
+			catch (int e) {
+				std::cout << "Error at blob number: " << count << "\n";
+				std::cout << "Error: " << e << "\n";
+			}
+		}
+		count++;
 	}
+	count = 0;
 }
 
 void Ball::Render() {

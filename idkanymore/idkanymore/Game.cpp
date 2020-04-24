@@ -44,15 +44,17 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player->destR.w = 150;
 	ov->_objectV.push_back(player);
 	int bx = 1;
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 3; i++) {
 		Blob* a = new Blob("C:/EM.png");
-		a->xpos = bx * 80;
+		a->xpos = bx * 45;
 		a->ypos = 100;
-		bx++;
+		bx += 2;
 		bs->blob_vector.push_back(a);
 	}
-	ball = new Ball("C:/heftyskipper.jpg", ov);
 
+	ball = new Ball("C:/heftyskipper.jpg", ov, bs);
+	ball->xpos = 300;
+	ball->ypos = 500;
 }
 
 void Game::handleEvents() {
