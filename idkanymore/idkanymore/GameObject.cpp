@@ -23,14 +23,20 @@ void GameObject::Movement(SDL_Event ev, int width, int height) {
 	switch (ev.key.keysym.sym)
 	{
 	case SDLK_d:
-		xpos += velocity;
+		left = false;
+		right = true;
 		break;
 	case SDLK_a:
-		xpos -= velocity;
+		left = true;
+		right = false;
 		break;
 	default:
 		break;
 	}
+	if (right)
+		xpos += velocity;
+	if (left)
+		xpos -= velocity;
 	if (xpos < 0)
 		xpos += velocity;
 	if (xpos > width - 150)

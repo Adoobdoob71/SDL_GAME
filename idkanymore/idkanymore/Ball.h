@@ -15,7 +15,7 @@ public:
 	SDL_Rect srcR, destR;
 	int xpos;
 	int ypos;
-	int Xvelocity = 1, Yvelocity = 1;
+	int Xvelocity = 5, Yvelocity = 5;
 	ObjectVector *ov;
 	BlobSpawner *bs;
 	int score = 0;

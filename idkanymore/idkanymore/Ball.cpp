@@ -20,28 +20,28 @@ Ball::~Ball() {
 void Ball::Update(int WIDTH, int HEIGHT) {
 	xpos += Xvelocity;
 	ypos += Yvelocity;
-	destR.h = 50;
-	destR.w = 50;
+	destR.h = 30;
+	destR.w = 30;
 	destR.x = xpos;
 	destR.y = ypos;
 	Lock(WIDTH, HEIGHT);
 }
 
 void Ball::Lock(int WIDTH, int HEIGHT) {
-	if (xpos == 0 || xpos + 50 == WIDTH)
+	if (xpos == 0 || xpos + 30 == WIDTH)
 		Xvelocity *= -1;
-	if (ypos == 0 || ypos + 50 == HEIGHT)
+	if (ypos == 0 || ypos + 30 == HEIGHT)
 		Yvelocity *= -1;
 
 	for (GameObject *player : ov->_objectV) {
-		if (xpos >= player->xpos - 50 && xpos <= player->xpos + player->destR.w && (ypos + 50 == player->ypos || ypos == player->ypos + player->destR.h))
+		if (xpos >= player->xpos - 30 && xpos <= player->xpos + player->destR.w && (ypos + 30 == player->ypos || ypos == player->ypos + player->destR.h))
 			Yvelocity *= -1;
-		if (ypos >= player->ypos - 50 && ypos <= player->ypos + player->destR.h && (xpos + 50 == player->xpos || xpos == player->xpos + player->destR.w))
+		if (ypos >= player->ypos - 30 && ypos <= player->ypos + player->destR.h && (xpos + 30 == player->xpos || xpos == player->xpos + player->destR.w))
 			Xvelocity *= -1;
 	}	
 	int count = 0;
 	for (Blob* a : bs->blob_vector) {
-		if (xpos >= a->xpos - 50 && xpos <= a->xpos + a->destR.w && (ypos + 50 == a->ypos || ypos == a->ypos + a->destR.h)) {
+		if (xpos >= a->xpos - 30 && xpos <= a->xpos + a->destR.w && (ypos + 30 == a->ypos || ypos == a->ypos + a->destR.h)) {
 			Yvelocity *= -1;
 			try {
 				bs->blob_vector.erase(bs->blob_vector.begin() + count);
@@ -53,7 +53,7 @@ void Ball::Lock(int WIDTH, int HEIGHT) {
 				std::cout << "Error: " << e << "\n";
 			}
 		}
-		if (ypos >= a->ypos - 50 && ypos <= a->ypos + a->destR.h && (xpos + 50 == a->xpos || xpos == a->xpos + a->destR.w)) {
+		if (ypos >= a->ypos - 20 && ypos <= a->ypos + a->destR.h && (xpos + 20 == a->xpos || xpos == a->xpos + a->destR.w)) {
 			Xvelocity *= -1;
 			try {
 				bs->blob_vector.erase(bs->blob_vector.begin() + count);

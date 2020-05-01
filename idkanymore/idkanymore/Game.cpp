@@ -6,6 +6,7 @@
 #include "Ball.h"
 #include "BlobSpawner.h"
 #include "Blob.h"
+#include "SDL_audio.h"
 
 BlobSpawner *bs = new BlobSpawner();
 ObjectVector *ov = new ObjectVector();
@@ -44,7 +45,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player->destR.w = 150;
 	ov->_objectV.push_back(player);
 	int bx = 1;
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 7; i++) {
 		Blob* a = new Blob("C:/EM.png");
 		a->xpos = bx * 45;
 		a->ypos = 100;
@@ -55,6 +56,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	ball = new Ball("C:/heftyskipper.jpg", ov, bs);
 	ball->xpos = 300;
 	ball->ypos = 500;
+	for (int i = 0; i < SDL_GetNumAudioDrivers(); i++) {
+
+	}
 }
 
 void Game::handleEvents() {

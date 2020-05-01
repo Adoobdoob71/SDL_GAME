@@ -29,7 +29,7 @@ void BlobSpawner::update() {
 		start = SDL_GetTicks();
 		if (SDL_GetTicks() - SpawnTimer > 10000) {
 			int bx = 1;
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < 7; i++) {
 				Blob* a = new Blob("C:/EM.png");
 				a->xpos = bx * 45;
 				a->ypos = 100;
